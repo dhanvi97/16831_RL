@@ -35,20 +35,88 @@ backgroundcolor = \color{light-yellow}
 \begin{centering}
     {\Large Assignment 1: Imitation Learning} \\
     \vspace{.25cm}
-    \textbf{Andrew ID:} \texttt{Write your Andrew ID here.} \\
-    \textbf{Collaborators:} \texttt{Write the Andrew IDs of your collaborators here.}\\ 
+    \textbf{Andrew ID:} \texttt{dsreeniv} \\
+    \textbf{Collaborators:} \texttt{None}\\ 
 \end{centering}
 
 \vspace{.5cm}
 
 \section{Behavioral Cloning}
 \subsection{Part 2}
+\begin{center}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+ \textbf{Environment Name} & \textbf{Eval Avg Return} & \textbf{Eval STD} & \textbf{Expert Avg Return} & \textbf{Accuracy} \\
+ \hline
+ Ant & 1578 & 544 & 4713 & 33\% \\
+ HalfCheetah & 2612 & 121 & 4205 & 62\% \\
+ Hopper & 521 & 179 & 3772 & 13.81\%\\
+ Humanoid & 285 & 46 & 10344 & 2.76\%\\
+ Walker2D & 353 & 276 & 5566 & 6.34\% \\
+ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
 \subsection{Part 3}
+From the above table, I chose Hopper as a dataset close to Ant-v2 due to similar expert costs, training data (2000 observations) and hyperparameters. The full results log is as below:
+
+\begin{center}
+\begin{table}[h]
+\begin{tabular}{|l|l|l|}
+\hline
+ \textbf{Output} & \textbf{Ant-v2} & \textbf{Hopper-v2}  \\
+ \hline
+ Eval Avg Return & 1578 & 521 \\
+ Eval Std Return & 544 & 179 \\
+ Eval Avg Ep Len & 1000 & 186 \\
+ Train Avg Return & 4713 & 3772 \\
+ Train Std Return & 12 & 1.94 \\
+ Train Avg Ep Len & 1000 & 1000 \\
+ \hline
+\end{tabular}
+\end{table}
+\end{center}
+
+This demonstrates that Behaviour Cloning does not perform well on Hopper, but does well on Ant since the average evaluation episode length is much shorter for Hopper
 \subsection{Part 4}
+
+I decided to vary the learning rate to understand its impact on the MLP model accuracy for Ant-v2. The chart below illustrates this effect
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=3in]{chart.png}
+    \caption{Learning Rate effect on Avg Return}
+    \label{fig:enter-label}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=3in]{Learning Rate vs Eval Std for Ant v2.png}
+    \caption{Learning Rate effect on Standard Deviation}
+    \label{fig:enter-label}
+\end{figure}
+
+I chose this parameter since the average episode length was ~200 with the default values which meant the network hadn't really learnt anything - increasing the learning rate would allow for quicker convergence and to hit higher accuracy in the given iterations.
 
 \section{DAgger}
 \subsection{Part 2}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=2.9in]{Learning curve for Ant-v2 using dAgger.png}
+    \caption{dAgger performance on Ant-v2 over 10 iterations}
+    \label{fig:enter-label}
+\end{figure}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=2.9in]{Learning Curve for Hopper-v2.png}
+    \caption{dAgger performance on Ant-v2 over 10 iterations}
+    \label{fig:enter-label}
+\end{figure}
+
+For the abopve curves, all the parameters were left at default - (Learning rate = 5e-3, Number of layers = 2, Layer Width = 64)
 
 \end{document}
